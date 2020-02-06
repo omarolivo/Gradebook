@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { GradebookComponent } from './gradebook/gradebook.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'Gradebook/:sectionId/:termId', component: GradebookComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
