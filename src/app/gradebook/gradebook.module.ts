@@ -5,13 +5,17 @@ import { GradebookRoutingModule } from './gradebook-routing.module';
 import { GradebookComponent } from './gradebook.component';
 import { StudentComponent } from './student/student.component';
 import { StudentsComponent } from './students/students.component';
+import { AssignmentComponent } from './assignment/assignment.component';
+import { AssignmentsComponent } from './assignments/assignments.component';
 
 
 @NgModule({
   declarations: [
     GradebookComponent,
     StudentComponent,
-    StudentsComponent
+    StudentsComponent,
+    AssignmentComponent,
+    AssignmentsComponent
   ],
   imports: [
     CommonModule,
