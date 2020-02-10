@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Assignment } from '../gradebook/models/gradebook.models';
+import { Assignment } from '../models/gradebook.models';
 
 @Component({
   selector: 'gb-assignments',
