@@ -1,31 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { GradebookService } from './gradebook.service';
+import { Gradebook } from './models/gradebook.models';
  
-import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-
 @Component({
   selector: 'gb-gradebook',
-  templateUrl: './gradebook.component.html'
+  templateUrl: './gradebook.component.html',
+  providers: [GradebookService]
 })
-export class GradebookComponent implements OnInit ,OnDestroy {
- 
-  private _subscriptions: Subscription = new Subscription();
+export class GradebookComponent {
+  data: Gradebook;
 
-
-  constructor(private _http: HttpClient) {
-   
+  constructor(private _gb: GradebookService) {
+    _gb.data.subscribe(gradebookData => this.data = gradebookData);
   }
-  
-  ngOnInit() {
-    // 
-    let sub  = this._http.get('http://localhost:4300/assets/data/gradebook.json')
-          		.subscribe(data  => console.log(data));
-
-    this._subscriptions.add(sub);
-  }
- 
-  ngOnDestroy(): void {
-    this._subscriptions.unsubscribe();
-  }
-
 }
