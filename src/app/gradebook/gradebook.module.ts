@@ -7,6 +7,8 @@ import { StudentComponent } from './student/student.component';
 import { StudentsComponent } from './students/students.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
+import { AssignmentGradeComponent } from './assignment-grade/assignment-grade.component';
+import { AssignmentGradesComponent } from './assignment-grades/assignment-grades.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { AssignmentsComponent } from './assignments/assignments.component';
     StudentComponent,
     StudentsComponent,
     AssignmentComponent,
-    AssignmentsComponent
+    AssignmentsComponent,
+    AssignmentGradeComponent,
+    AssignmentGradesComponent
   ],
   imports: [
     CommonModule,
