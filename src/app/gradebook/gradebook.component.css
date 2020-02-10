@@ -1,0 +1,20 @@
+div {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    ". assignments"
+    "students grid";
+}
+
+gb-assignments {
+    grid-area: assignments;
+}
+
+gb-students {
+    grid-area: students;
+}
+
+gb-assignment-grades {
+    grid-area: grid;
+}

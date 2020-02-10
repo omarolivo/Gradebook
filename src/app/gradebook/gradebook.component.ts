@@ -4,6 +4,7 @@ import { Gradebook } from './models/gradebook.models';
  
 @Component({
   selector: 'gb-gradebook',
+  styleUrls: ['./gradebook.component.css'],
   templateUrl: './gradebook.component.html',
   providers: [GradebookService]
 })
