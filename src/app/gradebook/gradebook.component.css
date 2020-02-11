@@ -5,6 +5,10 @@ div {
     border: black solid 1px;
     grid-template-rows: min-content 1fr;
     grid-template-columns: 200px 1fr;
+    gap: 10px;
+    grid-template-areas:
+    ". assignments"
+    "students grid";
 }
 
 gb-assignments {
