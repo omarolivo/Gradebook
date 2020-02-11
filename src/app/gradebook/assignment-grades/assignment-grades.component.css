@@ -1,0 +1,7 @@
+div {
+  display: grid;
+  grid-template-columns: repeat(var(--colVar), min-content);
+  padding: 5px;
+  border-radius: 5px;
+  border: black solid 1px;
+}

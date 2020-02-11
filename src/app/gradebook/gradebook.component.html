@@ -1,1 +1,5 @@
-<p>Gradebook Component as Feature Module.</p>
+<div>
+    <gb-assignments [assignments]="data.assignments"></gb-assignments>
+    <gb-students [students]="data.students"></gb-students>
+    <gb-assignment-grades [grades]="data.grades" [rowLength]="data.assignments?.length"></gb-assignment-grades>
+</div>

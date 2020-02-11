@@ -1,0 +1,24 @@
+div {
+    display: grid;
+    padding: 5px;
+    border-radius: 5px;
+    border: black solid 1px;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 200px 1fr;
+    gap: 10px;
+    grid-template-areas:
+    ". assignments"
+    "students grid";
+}
+
+gb-assignments {
+    grid-area: assignments;
+}
+
+gb-students {
+    grid-area: students;
+}
+
+gb-assignment-grades {
+    grid-area: grid;
+}
