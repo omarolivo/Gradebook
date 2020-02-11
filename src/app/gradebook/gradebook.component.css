@@ -1,24 +1,120 @@
+:root {
+  --categories: 0;
+  --students: 0;
+}
+
 div {
-    display: grid;
-    padding: 5px;
-    border-radius: 5px;
-    border: black solid 1px;
-    grid-template-rows: min-content 1fr;
-    grid-template-columns: 200px 1fr;
-    gap: 10px;
-    grid-template-areas:
-    ". assignments"
-    "students grid";
+  border: solid 1px;
+}
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
 
-gb-assignments {
-    grid-area: assignments;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 0px;
 }
 
-gb-students {
-    grid-area: students;
+.vertical-text {
+  white-space: nowrap;
+  position: absolute;
+  bottom: 20px;
+  width: 40px;
+  left: 6px;
+
+  transform: rotate(-90deg);
+  font-weight: bold;
+}
+.gb-container {
+  padding: 0px;
+  display: grid;
+  height: 100%;
+  color: #1d80b8;
+  font-size: 14px;
+  font-family: Tahoma, Arial, sans-serif;
+  grid-template-areas:
+    "gb-summary    gb-assignments"
+    "gb-students   gb-grades";
+  grid-template-columns: 230px auto;
+  grid-gap: 0px;
 }
 
-gb-assignment-grades {
-    grid-area: grid;
+.gb-grades td {
+  width: 70px;
+  height: 40px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+.gb-category {
+  height: 170px;
+  border: 1px solid #ddd;
+  position: relative;
+  border-bottom: 6px solid;
+}
+.gb-category-grade {
+  border: 1px solid #ddd;
+  height: 100%;
+  display: table;
+  text-align: center;
+}
+.gb-category-grade div {
+  display: table-cell;
+
+  vertical-align: middle;
+}
+.gb-categories {
+  position: relative;
+  grid-area: gb-categories;
+  align-items: center;
+  justify-content: center;
+  grid-template-rows: repeat(var(--students), 40px);
+}
+.gb-header-categories {
+  grid-area: gb-header-categories;
+  align-items: end;
+}
+.gb-summary {
+  grid-area: gb-summary;
+}
+.gb-assignments {
+  grid-area: gb-assignments;
+  overflow-x: auto;
+}
+.gb-students {
+  grid-area: gb-students;
+  overflow: hidden;
+}
+.gb-grades {
+  grid-area: gb-grades;
+  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.gb-grades tr:nth-child(odd),
+.gb-students tr:nth-child(odd) {
+  background: #fff;
+}
+.gb-grades tr:nth-child(even),
+.gb-students tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.gb-header-categories,
+.gb-categories {
+  display: grid;
+  grid-template-columns: repeat(var(--categories), 60px);
 }
