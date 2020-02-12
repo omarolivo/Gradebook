@@ -27,7 +27,7 @@ export interface Gradebook {
     grades:     AssignmentGrade[];
     assignments: Assignment[];
     scoreCodes: ScoreCode[];
-
+    students: Student[];
 }
 
 export interface Category {

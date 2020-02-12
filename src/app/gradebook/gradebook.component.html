@@ -1,5 +1,25 @@
-<div class="gradebook-grid">
+<!-- <div>
     <gb-assignments [assignments]="data.assignments"></gb-assignments>
     <gb-students [students]="data.students"></gb-students>
     <gb-assignment-grades [grades]="data.grades" [rowLength]="data.assignments?.length"></gb-assignment-grades>
+</div> -->
+
+<div class="gradebook-container">
+    <div class="gb-container">
+        <div class="gb-summary">
+          gb-summary
+        </div>
+
+
+        <div class="gb-assignments" >
+             <gb-assignment-list [assignments]="data.assignments"></gb-assignment-list>
+        </div>
+        <div class="gb-students"  >
+            <gb-students-list [students]="data.students"></gb-students-list>
+        </div>
+        <div class="gb-grades">
+            <p>gb-grades</p>
+
+        </div>
+    </div>
 </div>
