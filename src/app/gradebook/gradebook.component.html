@@ -9,17 +9,14 @@
         <div class="gb-summary">
           gb-summary
         </div>
-
-
-        <div class="gb-assignments" >
-             <gb-assignment-list [assignments]="data.assignments"></gb-assignment-list>
+        <div class="gb-assignments">
+            <gb-assignment-list [assignments]="data.assignments"></gb-assignment-list>
         </div>
-        <div class="gb-students"  >
+        <div class="gb-students">
             <gb-students-list [students]="data.students"></gb-students-list>
         </div>
         <div class="gb-grades">
-            <p>gb-grades</p>
-
+            <gb-assignment-grades [grades]="data.grades"></gb-assignment-grades>
         </div>
     </div>
 </div>
