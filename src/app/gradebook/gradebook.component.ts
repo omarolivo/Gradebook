@@ -11,11 +11,20 @@ import { Gradebook } from './models/gradebook.models';
 export class GradebookComponent {
   data: Gradebook;
 
-  constructor(private _gb: GradebookService) {
-    _gb.data.subscribe(gradebookData => {
+  private rootElement;
+  setCSSvar(property, newValue) {
+    this.rootElement.style.setProperty(property, newValue);
+  }
+
+  ngOnInit() {
+    this.rootElement = document.querySelector(':root');
+
+    this._gb.data.subscribe(gradebookData => {
       this.data = gradebookData;
-      document.querySelector(':root').style.setProperty('--grades-columns', this.data.assignments?.length);
-      document.querySelector(':root').style.setProperty('--grades-rows', this.data.students?.length);
+      this.setCSSvar('--grades-columns', this.data.assignments?.length);
+      this.setCSSvar('--grades-rows', this.data.students?.length);
     });
   }
+
+  constructor(private _gb: GradebookService) { }
 }
