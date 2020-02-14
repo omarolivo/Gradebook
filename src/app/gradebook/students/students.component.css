@@ -1,4 +1,4 @@
-div {
+.students-container {
   display: grid;
   grid-auto-flow: row;
   padding: 5px;

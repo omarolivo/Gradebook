@@ -1,7 +1,8 @@
-div {
+.assignments-container {
   display: grid;
   grid-auto-flow: column;
   padding: 5px;
+  overflow-y: hidden;
   border-radius: 5px;
   border: black solid 1px;
 }

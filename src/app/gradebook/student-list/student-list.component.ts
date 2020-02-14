@@ -5,33 +5,36 @@ import { Student } from '../models/gradebook.models';
   selector: 'gb-students-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`
-
-			td {
-				height: 40px;
-				border: 1px solid #ddd;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				vertical-align: middle;
-			}
-			tr td:first-child {
-				width: 170px;
-			}
-			tr td:first-child div {
-				cursor: pointer;
-				display: inline-block;
-				padding-left:5px;
-			}
-			tr td:last-child   {
-				width: 60px;
-				text-align: center;
-			}
-  `],
+	.student-list {
+		display: grid;
+		grid-auto-flow: row;
+		padding: 2px;
+		grid-gap: 2px;
+	}
+	.student {
+		display: grid;
+		grid-template-columns: 170px 60px;
+		grid-template-rows: 40px;
+		grid-gap: 2px;
+	}
+	.student-name, .student-percent {
+		overflow: hidden;
+		border: 1px solid #ddd;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.student-name {
+		cursor: pointer;
+		padding: 10px;
+	}
+	.student-percent {
+		text-align: center;
+	}`],
   template: `
-  <table >
-  <tbody>
-    <tr *ngFor="let student of students; let i = index, trackBy: trackBy">
-      <td>
-			<div (click)="studentSelected.emit(student)"> {{i+1}}.
+  <div class="student-list">
+    <div class="student"
+				 *ngFor="let student of students; let i = index, trackBy: trackBy">
+			<div class="student-name" (click)="studentSelected.emit(student)"> {{i+1}}.
 				<ng-container *ngIf="showLastNameFirst">
 					{{ student.lastName }}, {{student.firstName}}
 				</ng-container>
@@ -39,18 +42,13 @@ import { Student } from '../models/gradebook.models';
 					{{ student.firstName }} {{student.lastName}}
 				</ng-container>
 			</div>
-      </td>
-      <td>
-          {{student.termGrade?.percent | percent:'1.1-2'}}
-	  </td>
-
-    </tr>
-  </tbody>
-</table>
-  `
+      <span class="student-percent">
+				{{student.termGrade?.percent | percent:'1.1-2'}}
+			</span>
+    </div>
+  </div>`
 })
 export class StudentsListComponent {
-
   @Input() students: Student[];
   @Input() showLastNameFirst: boolean;
   @Output() studentSelected = new EventEmitter<Student>();
@@ -60,6 +58,4 @@ export class StudentsListComponent {
   ngOnChanges(changes: SimpleChanges): void {
 
   }
-
-
 }

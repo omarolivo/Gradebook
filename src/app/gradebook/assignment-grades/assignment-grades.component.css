@@ -1,4 +1,4 @@
-div {
+.assignment-grades-container {
   display: grid;
   grid-template-columns: repeat(var(--colVar), min-content);
   padding: 5px;
