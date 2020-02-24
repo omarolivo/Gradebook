@@ -7,7 +7,7 @@ import { Gradebook } from './models/gradebook.models';
   providedIn: 'root'
 })
 export class GradebookService {
-  data = new BehaviorSubject<Gradebook>({} as Gradebook);
+  data = new BehaviorSubject<Gradebook>(null);
 
   constructor(private _http: HttpClient) {
     const subscription = this._http.get('/assets/data/gradebook.json')
