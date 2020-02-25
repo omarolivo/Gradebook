@@ -1,6 +1,8 @@
 :root {
   --categories: 0;
   --students: 0;
+  --grades-columns: 0;
+  --grades-rows: 0;
 }
 
 div {

@@ -1,7 +1,0 @@
-.students-container {
-  display: grid;
-  grid-auto-flow: row;
-  padding: 5px;
-  border-radius: 5px;
-  border: black solid 1px;
-}

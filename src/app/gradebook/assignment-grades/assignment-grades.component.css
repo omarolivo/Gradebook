@@ -1,7 +1,7 @@
 .assignment-grades-container {
   display: grid;
-  grid-template-columns: repeat(var(--colVar), min-content);
-  padding: 5px;
-  border-radius: 5px;
-  border: black solid 1px;
+  grid-template-columns: repeat(var(--grades-columns), 70px);
+  grid-template-rows: repeat(var(--grades-rows), 40px);
+  grid-gap: 2px;
+  padding: 2px;
 }
