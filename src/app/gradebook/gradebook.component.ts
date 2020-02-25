@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GradebookService } from './gradebook.service';
-import { Gradebook, Assignment, AssignmentGrade, Student } from './models/gradebook.models';
+import { Gradebook, Assignment, AssignmentGrade, Student, Category } from './models/gradebook.models';
  
 @Component({
   selector: 'gb-gradebook',
@@ -26,6 +26,17 @@ export class GradebookComponent {
     return newGrades;
   }
 
+  sortAssignments(assignments: Assignment[], categories: Category[]) {
+    const newAssignments = [];
+    for (const assignment of assignments) {
+      newAssignments.push({
+        ...assignment,
+        category: {...categories.find(c => c.id === assignment.categoryId)}
+      });
+    }
+    return newAssignments;
+  }
+
   ngOnInit() {
     this.rootElement = document.querySelector(':root');
 
@@ -33,6 +44,7 @@ export class GradebookComponent {
       if (gradebookData) {
         this.data = {
           ...gradebookData,
+          assignments: this.sortAssignments(gradebookData.assignments, gradebookData.categories),
           grades: this.sortGrades(gradebookData.grades, gradebookData.assignments, gradebookData.students)
         };
         this.setCSSvar('--grades-columns', this.data.assignments.length);
