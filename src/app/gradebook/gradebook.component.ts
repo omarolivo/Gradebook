@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GradebookService } from './gradebook.service';
 import { Gradebook, Assignment, AssignmentGrade, Student, Category } from './models/gradebook.models';
  
@@ -8,10 +8,12 @@ import { Gradebook, Assignment, AssignmentGrade, Student, Category } from './mod
   templateUrl: './gradebook.component.html',
   providers: [GradebookService]
 })
-export class GradebookComponent {
+export class GradebookComponent implements OnInit {
   data: Gradebook;
-
   private rootElement;
+
+  constructor(private _gb: GradebookService) { }
+
   setCSSvar(property, newValue) {
     this.rootElement.style.setProperty(property, newValue);
   }
@@ -54,6 +56,4 @@ export class GradebookComponent {
       }
     });
   }
-
-  constructor(private _gb: GradebookService) { }
 }
