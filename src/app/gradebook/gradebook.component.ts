@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GradebookService } from './gradebook.service';
-import { Gradebook, Assignment, AssignmentGrade, Student, Category } from './models/gradebook.models';
+import { Gradebook, Assignment, AssignmentGrade, Student, Category, ScoreCode } from './models/gradebook.models';
+import { GraderService } from './grader.service';
+import { TreeError } from '@angular/compiler';
  
 @Component({
   selector: 'gb-gradebook',
@@ -12,7 +14,9 @@ export class GradebookComponent implements OnInit {
   data: Gradebook;
   private rootElement;
 
-  constructor(private _gb: GradebookService) { }
+  constructor(private _gb: GradebookService, private _grader: GraderService) {
+
+  }
 
   setCSSvar(property, newValue) {
     this.rootElement.style.setProperty(property, newValue);
@@ -39,6 +43,25 @@ export class GradebookComponent implements OnInit {
     return newAssignments;
   }
 
+  calculateStudents(
+    students: Student[], 
+    categories: Category[],
+    assignments: Assignment[],
+    grades: AssignmentGrade[],
+    scoreCodes: ScoreCode[]
+  ) {
+    const gradedStudents: Student[] = [];
+    const allGradedAssignments = this._grader.computeGradesPoints(grades, assignments, scoreCodes);
+
+    for (const student of students) {
+      const gradedAssignments = allGradedAssignments.filter(ga => ga.userId === student.userId);
+      const gradedCategories = this._grader.computeCategoriesPoints(categories, gradedAssignments);
+      const termGrade = this._grader.computeOverallAverage(gradedCategories, true);
+      gradedStudents.push({...student, termGrade: termGrade});
+    }
+    return gradedStudents;
+  }
+
   ngOnInit() {
     this.rootElement = document.querySelector(':root');
 
@@ -46,6 +69,13 @@ export class GradebookComponent implements OnInit {
       if (gradebookData) {
         this.data = {
           ...gradebookData,
+          students: this.calculateStudents(
+            gradebookData.students,
+            gradebookData.categories,
+            gradebookData.assignments,
+            gradebookData.grades,
+            gradebookData.scoreCodes
+          ),
           assignments: this.sortAssignments(gradebookData.assignments, gradebookData.categories),
           grades: this.sortGrades(gradebookData.grades, gradebookData.assignments, gradebookData.students)
         };
