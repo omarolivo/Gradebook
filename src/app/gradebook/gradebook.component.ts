@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GradebookService } from './gradebook.service';
 import { Gradebook, Assignment, AssignmentGrade, Student, Category, ScoreCode } from './models/gradebook.models';
 import { GraderService } from './grader.service';
-import { TreeError } from '@angular/compiler';
  
 @Component({
   selector: 'gb-gradebook',
@@ -12,14 +11,16 @@ import { TreeError } from '@angular/compiler';
 })
 export class GradebookComponent implements OnInit {
   data: Gradebook;
-  private rootElement;
 
-  constructor(private _gb: GradebookService, private _grader: GraderService) {
-
-  }
+  constructor(private _gb: GradebookService, private _grader: GraderService) {}
 
   setCSSvar(property, newValue) {
-    this.rootElement.style.setProperty(property, newValue);
+    document.documentElement.style.setProperty(property, newValue);
+  }
+  
+  setGridSize(columns: number, rows: number) {
+    this.setCSSvar('--grades-columns', columns);
+    this.setCSSvar('--grades-rows', rows);
   }
 
   sortGrades(grades: AssignmentGrade[], assignments: Assignment[], students: Student[]): AssignmentGrade[] {
@@ -35,10 +36,8 @@ export class GradebookComponent implements OnInit {
   sortAssignments(assignments: Assignment[], categories: Category[]) {
     const newAssignments = [];
     for (const assignment of assignments) {
-      newAssignments.push({
-        ...assignment,
-        category: {...categories.find(c => c.id === assignment.categoryId)}
-      });
+      const category = {...categories.find(c => c.id === assignment.categoryId)};
+      newAssignments.push({...assignment, category: category});
     }
     return newAssignments;
   }
@@ -63,24 +62,21 @@ export class GradebookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rootElement = document.querySelector(':root');
-
     this._gb.data.subscribe((gradebookData: Gradebook) => {
       if (gradebookData) {
-        this.data = {
-          ...gradebookData,
-          students: this.calculateStudents(
-            gradebookData.students,
-            gradebookData.categories,
-            gradebookData.assignments,
-            gradebookData.grades,
-            gradebookData.scoreCodes
-          ),
-          assignments: this.sortAssignments(gradebookData.assignments, gradebookData.categories),
-          grades: this.sortGrades(gradebookData.grades, gradebookData.assignments, gradebookData.students)
-        };
-        this.setCSSvar('--grades-columns', this.data.assignments.length);
-        this.setCSSvar('--grades-rows', this.data.students.length);
+        const students = this.calculateStudents(
+          gradebookData.students,
+          gradebookData.categories,
+          gradebookData.assignments,
+          gradebookData.grades,
+          gradebookData.scoreCodes
+        );
+        const assignments = this.sortAssignments(gradebookData.assignments, gradebookData.categories);
+        const grades = this.sortGrades(gradebookData.grades, gradebookData.assignments, gradebookData.students);
+        
+        this.data = {...gradebookData, students: students, assignments: assignments, grades: grades};
+
+        this.setGridSize(this.data.assignments.length, this.data.students.length);
       } else {
         this.data = gradebookData;
       }
