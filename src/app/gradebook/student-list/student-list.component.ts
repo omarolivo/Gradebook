@@ -13,7 +13,7 @@ import { Student } from '../models/gradebook.models';
 	}
 	.student {
 		display: grid;
-		grid-template-columns: 170px 60px;
+		grid-template-columns: 5fr 2fr;
 		grid-template-rows: 40px;
 		grid-gap: 2px;
 	}
@@ -22,10 +22,10 @@ import { Student } from '../models/gradebook.models';
 		border: 1px solid #ddd;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		padding: 10px 0 10px 0;
 	}
 	.student-name {
 		cursor: pointer;
-		padding: 10px;
 	}
 	.student-percent {
 		text-align: center;
