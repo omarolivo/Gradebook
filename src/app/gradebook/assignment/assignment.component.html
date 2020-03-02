@@ -1,0 +1,14 @@
+<div class="assignment" [style.borderBottomColor]="assignment.category?.color">
+  <div>
+    <div class="vertical-text" [attr.title]="assignment.name" >
+      {{assignment.name}}
+      <br />
+      {{assignment.category?.name}}
+      <br />{{assignment.points}}Pts
+      <small *ngIf="assignment.isExtraCredit"> (E.C)</small>
+    </div>
+  </div>
+  <div class="max-score-badge" title="Maximum possible score">
+    {{assignment.maxScore}}
+  </div>
+</div>

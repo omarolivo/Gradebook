@@ -1,0 +1,22 @@
+.student {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  grid-template-rows: 40px;
+  grid-gap: 2px;
+}
+
+.student-name, .student-percent {
+  overflow: hidden;
+  border: 1px solid #ddd;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 10px 2px 10px 2px;
+}
+
+.student-name {
+  cursor: pointer;
+}
+
+.student-percent {
+  text-align: center;
+}

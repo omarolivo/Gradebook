@@ -1,0 +1,13 @@
+<div class="student">
+  <div class="student-name" (click)="selectedFn()">
+    <ng-container *ngIf="showLastNameFirst">
+      {{ student.lastName }}, {{student.firstName}}
+    </ng-container>
+    <ng-container *ngIf="!showLastNameFirst">
+      {{ student.firstName }} {{student.lastName}}
+    </ng-container>
+  </div>
+  <span class="student-percent">
+    {{student.termGrade?.percent | percent:'1.1-2'}}
+  </span>
+<div>
