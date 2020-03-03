@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GradebookService } from './gradebook.service';
 import { Gradebook, Assignment, AssignmentGrade, Student, Category, ScoreCode } from './models/gradebook.models';
 import { GraderService } from './grader.service';
+import { GradebookStoreService } from './gradebook-store.service';
  
 @Component({
   selector: 'gb-gradebook',
@@ -12,7 +13,10 @@ import { GraderService } from './grader.service';
 export class GradebookComponent implements OnInit {
   data: Gradebook;
 
-  constructor(private _gb: GradebookService, private _grader: GraderService) {}
+  constructor(
+    private _gb: GradebookService,
+    private _gradebookStoreService: GradebookStoreService,
+    private _grader: GraderService) {}
 
   setCSSvar(property, newValue) {
     document.documentElement.style.setProperty(property, newValue);
@@ -62,6 +66,11 @@ export class GradebookComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
+    this._gradebookStoreService.loadGradebook();
+
+    //move GradebookService to gradebook store service
     this._gb.data.subscribe((gradebookData: Gradebook) => {
       if (gradebookData) {
         const students = this.calculateStudents(
