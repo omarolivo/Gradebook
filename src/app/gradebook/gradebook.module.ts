@@ -9,6 +9,7 @@ import { AssignmentsListComponent } from './assignment-list/assignment-list.comp
 import { StudentsListComponent } from './student-list/student-list.component';
 import { StudentComponent } from './student/student.component';
 import { AssignmentComponent } from './assignment/assignment.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AssignmentComponent } from './assignment/assignment.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     GradebookRoutingModule
   ],
   exports: [
