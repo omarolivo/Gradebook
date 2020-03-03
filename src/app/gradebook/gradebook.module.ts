@@ -10,7 +10,7 @@ import { StudentsListComponent } from './student-list/student-list.component';
 import { StudentComponent } from './student/student.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    GradebookRoutingModule
+    GradebookRoutingModule,
+    ModalModule.forRoot()
   ],
   exports: [
     GradebookComponent

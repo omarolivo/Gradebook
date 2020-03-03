@@ -10,4 +10,8 @@ export class AssignmentComponent {
   @Input() assignment: Assignment;
 
   constructor() { }
+
+  save() {
+    
+  }
 }
