@@ -1,15 +1,4 @@
-:root {
-  --categories: 0;
-  --students: 0;
-  --grades-columns: 0;
-  --grades-rows: 0;
-}
-
-div {
-  border: solid 1px;
-}
-
-.gb-container {
+:host {
   padding: 0px;
   display: grid;
   height: 100%;
@@ -21,4 +10,15 @@ div {
     "gb-students   gb-grades";
   grid-template-columns: 230px auto;
   grid-gap: 0px;
+}
+
+:root {
+  --categories: 0;
+  --students: 0;
+  --grades-columns: 0;
+  --grades-rows: 0;
+}
+
+div {
+  border: solid 1px;
 }

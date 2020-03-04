@@ -5,7 +5,7 @@ import { Assignment } from '../models/gradebook.models';
 	selector: 'gb-assignment-list',
 	encapsulation: ViewEncapsulation.Emulated,
 	styles: [`
-  .assignment-list {
+  :host {
     display: grid;
     grid-template-rows: 1fr;
     grid-auto-flow: column;
@@ -13,12 +13,8 @@ import { Assignment } from '../models/gradebook.models';
     margin-left: 2px;
     grid-gap: 2px;
   }`],
-	template: `
-  <div class="assignment-list">
-    <gb-assignment
-      *ngFor="let assignment of assignments; let j = index, trackBy: trackAssignmentBy"
-      [assignment]="assignment"></gb-assignment>
-  </div>`
+  template: `<gb-assignment *ngFor="let assignment of assignments; let j = index, trackBy: trackAssignmentBy"
+                            [assignment]="assignment"></gb-assignment>`
 })
 export class AssignmentsListComponent  implements OnInit, OnChanges {
   @Input()  assignments: Assignment[];

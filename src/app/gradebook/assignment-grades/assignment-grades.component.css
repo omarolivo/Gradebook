@@ -1,4 +1,4 @@
-.assignment-grades-container {
+:host {
   display: grid;
   grid-template-columns: repeat(var(--grades-columns), 70px);
   grid-template-rows: repeat(var(--grades-rows), 40px);
