@@ -1,1 +1,1 @@
-<gb-assignment-grade *ngFor="let grade of grades" [grade]="grade"></gb-assignment-grade>
+<gb-assignment-grade *ngFor="let grade of _store.gradeEntries$ | async" [grade]="grade"></gb-assignment-grade>

@@ -1,5 +1,6 @@
-import {Component, Input,   ChangeDetectionStrategy, ViewEncapsulation, OnInit, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { Assignment } from '../models/gradebook.models';
+import { GradebookStoreService } from '../gradebook-store.service';
 
 @Component({
 	selector: 'gb-assignment-list',
@@ -13,24 +14,13 @@ import { Assignment } from '../models/gradebook.models';
     margin-left: 2px;
     grid-gap: 2px;
   }`],
-  template: `<gb-assignment *ngFor="let assignment of assignments; let j = index, trackBy: trackAssignmentBy"
+  template: `<gb-assignment *ngFor="let assignment of _store.assignments$ | async; let j = index, trackBy: trackAssignmentBy"
                             [assignment]="assignment"></gb-assignment>`
 })
-export class AssignmentsListComponent  implements OnInit, OnChanges {
-  @Input()  assignments: Assignment[];
+export class AssignmentsListComponent {
+    constructor(public _store: GradebookStoreService) {}
 
-  constructor() {
-    console.log(this.assignments);
-  }
+    ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.assignments);
-
-  }
-
-  ngOnInit(): void {
-      console.log(this.assignments);
-  }
-
-  trackAssignmentBy = (index, assignment: Assignment) => assignment.id;
+    trackAssignmentBy = (index, assignment: Assignment) => assignment.id;
 }

@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { FormGroup, FormBuilder, FormArray, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
-import { Assignment, Student, Category, ScoreCode, AssignmentGrade } from "./models/gradebook.models";
+import { Assignment, Student, Category, ScoreCode, AssignmentGrade, Gradebook } from "./models/gradebook.models";
+import { GradebookService } from './gradebook.service';
+import { GraderService } from './grader.service';
 
 @Injectable({ providedIn: "root" })
 export class GradebookStoreService {
 
-	constructor(private _fb: FormBuilder) { }
+	constructor(private _gb: GradebookService, private _grader: GraderService, private _fb: FormBuilder) { }
 
 	private _gradebookForm = new BehaviorSubject(
 		this._fb.group({
@@ -35,17 +37,12 @@ export class GradebookStoreService {
 	gradebookForm$ = this._gradebookForm.asObservable();
 	
 	public loadGradebook( ) {
-		
-     	// this._sectionService.getGradebook().subscribe(  gradebook => {
-         
-        //     this.gradeEntries = this.createGradeEntries(gradebook.students, gradebook.assignments,   gradebook.grades || []);
-        //     this.updateUI(gradebook.students, gradebook.assignments, gradebook.categories, gradebook.scoreCodes);
-
-        // }); 
-    
+		this._gb.getGradbook().subscribe((gb: Gradebook) => {
+            this.updateStore(gb.students, gb.categories, gb.assignments, gb.grades, gb.scoreCodes);
+        });
 	}
 	
-	private updateStore(students: Student[], assignments:Assignment[], categories:Category[], scoreCodes:ScoreCode[]){
+	private updateStore(students: Student[], categories: Category[], assignments: Assignment[], gradeEntries: AssignmentGrade[], scoreCodes: ScoreCode[]){
         
         // assign category to all assignments
         assignments.forEach(assignment => {
@@ -53,12 +50,24 @@ export class GradebookStoreService {
         }); 
         
         this.assignments = assignments;
-        this.students = students;
+        this.students = this.calculateStudents(students, categories, assignments, gradeEntries, scoreCodes);
         this.categories = categories;
         this.scoreCodes = scoreCodes;
-         
-        //this.updateTermGrades();
-	}
+        this.gradeEntries = this.createGradeEntries(students, assignments, gradeEntries);
+    }
+    
+    private calculateStudents(students: Student[], categories: Category[], assignments: Assignment[], gradeEntries: AssignmentGrade[], scoreCodes: ScoreCode[]) {
+        const gradedStudents: Student[] = [];
+        const allGradedAssignments = this._grader.computeGradesPoints(gradeEntries, assignments, scoreCodes);
+  
+        for (const student of students) {
+            const gradedAssignments = allGradedAssignments.filter(ga => ga.userId === student.userId);
+            const gradedCategories = this._grader.computeCategoriesPoints(categories, gradedAssignments);
+            const termGrade = this._grader.computeOverallAverage(gradedCategories, true);
+            gradedStudents.push({...student, termGrade: termGrade});
+        }
+        return gradedStudents;
+    }  
 	
 	private createGradeEntries(students: Student[], assignments: Assignment[], grades:  AssignmentGrade[]) {
         const newAssignmentGrades = [...grades];

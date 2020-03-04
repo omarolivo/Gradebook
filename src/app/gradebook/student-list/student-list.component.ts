@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { Student } from '../models/gradebook.models';
+import { GradebookStoreService } from '../gradebook-store.service';
 
 @Component({
     selector: 'gb-students-list',
@@ -11,16 +12,17 @@ import { Student } from '../models/gradebook.models';
             padding: 2px;
         }`],
     template: `<gb-student
-                    *ngFor="let student of students; let i = index, trackBy: trackBy"
+                    *ngFor="let student of _store.students$ | async; let i = index, trackBy: trackBy"
                     [student]="student"
                     [showLastNameFirst]="showLastNameFirst"
                     (selected)="studentSelectedFn($event)"></gb-student>`
 })
 export class StudentsListComponent {
-    @Input() students: Student[];
     @Input() showLastNameFirst: boolean;
     @Output() studentSelected = new EventEmitter<Student>();
-	
+    
+    constructor(public _store: GradebookStoreService) {}
+    
 	studentSelectedFn(student) {
 		this.studentSelected.emit(student);
 	}

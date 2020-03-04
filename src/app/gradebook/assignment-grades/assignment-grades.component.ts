@@ -1,13 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { AssignmentGrade } from '../models/gradebook.models';
+import { Component } from '@angular/core';
+import { GradebookStoreService } from '../gradebook-store.service';
 
 @Component({
-  selector: 'gb-assignment-grades',
-  templateUrl: './assignment-grades.component.html',
-  styleUrls: ['./assignment-grades.component.css']
+    selector: 'gb-assignment-grades',
+    templateUrl: './assignment-grades.component.html',
+    styleUrls: ['./assignment-grades.component.css']
 })
 export class AssignmentGradesComponent {
-  @Input() grades: AssignmentGrade[];
-
-  constructor() { }
+    constructor(public _store: GradebookStoreService) {}
 }
