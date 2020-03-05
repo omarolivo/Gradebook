@@ -1,0 +1,25 @@
+<div class="modal fade" bsModal #editdialog="bs-modal" [config]="{ backdrop: 'static' }">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Assignment</h3>
+            </div>
+            <div class="modal-body" [formGroup]="_store.assignmentFormGroup">
+                <input type="text" formControlName="id">
+                <input type="text" formControlName="sectionId">
+                <input type="text" formControlName="termId">
+                <input type="text" formControlName="name">
+                <input type="date" formControlName="dueDate">
+                <input type="date" formControlName="dateCreated">
+                <input type="date" formControlName="dateModified">
+                <input type="text" formControlName="categoryId">
+                <input type="text" formControlName="maxScore">
+                <input type="text" formControlName="points">
+                <input type="text" formControlName="isExtraCredit">
+                <button type="button" class="btn btn-danger" (click)="delete()" >Delete</button>
+                <button type="button" class="btn btn-default" (click)="close()" >Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

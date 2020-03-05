@@ -11,6 +11,7 @@ import { StudentComponent } from './student/student.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AssignmentEditDialogComponent } from './assignment-edit-dialog/assignment-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AssignmentsListComponent,
     StudentComponent,
     AssignmentComponent,
+    AssignmentEditDialogComponent,
   ],
   imports: [
     CommonModule,
