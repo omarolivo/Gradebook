@@ -6,9 +6,10 @@ import { GradebookStoreService } from '../gradebook-store.service';
     selector: 'gb-students-list',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`
-        .student-list {
+        :host {
             display: grid;
             grid-auto-flow: row;
+            grid-gap: 2px;
             padding: 2px;
         }`],
     template: `<gb-student
