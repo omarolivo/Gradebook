@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GradebookStoreService } from '../gradebook-store.service';
 
 @Component({
@@ -7,5 +7,13 @@ import { GradebookStoreService } from '../gradebook-store.service';
     styleUrls: ['./assignment-grades.component.css']
 })
 export class AssignmentGradesComponent {
-    constructor(public _store: GradebookStoreService) {}
+    constructor(public _store: GradebookStoreService) {
+        const node = document.documentElement;
+        this._store.assignments$.subscribe(assingments => {
+            node.style.setProperty('--grades-columns', assingments.length.toString());
+        });
+        this._store.students$.subscribe(students => {
+            node.style.setProperty('--grades-rows', students.length.toString());
+        });
+    }
 }
