@@ -9,8 +9,8 @@ import { GradebookStoreService } from '../gradebook-store.service';
 export class AssignmentGradesComponent {
     constructor(public _store: GradebookStoreService) {
         const node = document.documentElement;
-        this._store.assignments$.subscribe(assingments => {
-            node.style.setProperty('--grades-columns', assingments.length.toString());
+        this._store.assignments$.subscribe(assignments => {
+            node.style.setProperty('--grades-columns', assignments.length.toString());
         });
         this._store.students$.subscribe(students => {
             node.style.setProperty('--grades-rows', students.length.toString());
