@@ -8,7 +8,7 @@ import { GraderService } from './grader.service';
 @Injectable({ providedIn: "root" })
 export class GradebookStoreService {
 
-	constructor(private _gb: GradebookService, private _grader: GraderService, private _fb: FormBuilder) { }
+	constructor(private _APIservice: GradebookService, private _grader: GraderService, private _fb: FormBuilder) { }
 
 	private _gradebookForm = new BehaviorSubject(
 		this._fb.group({
@@ -37,7 +37,7 @@ export class GradebookStoreService {
 	gradebookForm$ = this._gradebookForm.asObservable();
 	
 	public loadGradebook( ) {
-		this._gb.getGradbook().subscribe((gb: Gradebook) => {
+		this._APIservice.getGradbook().subscribe((gb: Gradebook) => {
             this.updateStore(gb.students, gb.categories, gb.assignments, gb.grades, gb.scoreCodes);
         });
 	}
@@ -114,8 +114,11 @@ export class GradebookStoreService {
 		this._assignments.next(val);
     }
     deleteAssignment(assignment: Assignment) {
-        this.assignments = this.assignments.filter(a => a.id !== assignment.id);
-        
+        this._APIservice.deleteAssignment(assignment).subscribe(success => {
+            if (success) {
+                this.assignments = this.assignments.filter(a => a.id !== assignment.id);
+            }
+        });
     }
 
 	private readonly _categories = new BehaviorSubject<Category[]>([]);
