@@ -12,9 +12,4 @@ export class GradebookService {
     getGradbook(): Observable<Gradebook> {
         return this._http.get<Gradebook>('/assets/data/gradebook.json');
     }
-    
-    // setGridSize(columns: number, rows: number) {
-    //   node.style.setProperty('--grades-columns', columns);
-    //   node.style.setProperty('--grades-rows', rows);
-    // }
 }
