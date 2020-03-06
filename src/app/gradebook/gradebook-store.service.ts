@@ -112,7 +112,11 @@ export class GradebookStoreService {
 	}
 	set assignments(val: Assignment[]) {
 		this._assignments.next(val);
-	}
+    }
+    deleteAssignment(assignment: Assignment) {
+        this.assignments = this.assignments.filter(a => a.id !== assignment.id);
+        
+    }
 
 	private readonly _categories = new BehaviorSubject<Category[]>([]);
     readonly categories$ = this._categories.asObservable();

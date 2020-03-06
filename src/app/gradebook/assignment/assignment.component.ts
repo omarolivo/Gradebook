@@ -1,17 +1,18 @@
 import { Component, Input, } from '@angular/core';
 import { Assignment } from '../models/gradebook.models';
+import { GradebookEventsService } from '../gradebook-events.service';
 
 @Component({
-  selector: 'gb-assignment',
-  templateUrl: './assignment.component.html',
-  styleUrls: ['./assignment.component.css']
+    selector: 'gb-assignment',
+    templateUrl: './assignment.component.html',
+    styleUrls: ['./assignment.component.css']
 })
 export class AssignmentComponent {
-  @Input() assignment: Assignment;
+    @Input() assignment: Assignment;
 
-  constructor() { }
+    constructor(private _events: GradebookEventsService) { }
 
-  save() {
-    
-  }
+    openEditDialog() {
+        this._events.newEditingAssignment(this.assignment);
+    }
 }

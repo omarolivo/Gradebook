@@ -1,6 +1,6 @@
 .assignment {
   display: grid;
-  grid-template-rows: min-content 1fr min-content;
+  grid-template-rows: 1fr min-content;
   border: 1px solid #ddd;
   text-align: left;
   border-bottom: 4px solid;
